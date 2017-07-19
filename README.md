@@ -1,14 +1,10 @@
 FFVS-Project-Generator
 =============
-[![Build status](https://ci.appveyor.com/api/projects/status/g6qqnx5t3qj60pei?svg=true)](https://ci.appveyor.com/project/Sibras/ffvs-project-generator)
-[![Github All Releases](https://img.shields.io/github/downloads/ShiftMediaProject/FFVS-Project-Generator/total.svg)](https://github.com/ShiftMediaProject/FFVS-Project-Generator/releases)
-[![GitHub release](https://img.shields.io/github/release/ShiftMediaProject/FFVS-Project-Generator.svg)](https://github.com/ShiftMediaProject/FFVS-Project-Generator/releases/latest)
-[![GitHub issues](https://img.shields.io/github/issues/ShiftMediaProject/FFVS-Project-Generator.svg)](https://github.com/ShiftMediaProject/FFVS-Project-Generator/issues)
-[![license](https://img.shields.io/github/license/ShiftMediaProject/FFVS-Project-Generator.svg)](https://github.com/ShiftMediaProject/FFVS-Project-Generator)
-[![donate](https://img.shields.io/badge/donate-link-brightgreen.svg)](https://shiftmediaproject.github.io/8-donate/)
 ## About
 
 The FFmpeg VS Project Generator is a standalone program that can be used to create a custom Visual Studio project within a FFmpeg source code distribution. This program allows for the created Visual Studio project to be customised using virtually any of the options supported by FFmpegs default configure script. This allows for selecting which dependency libraries and codec/format support should be built into the created project file. With the output project FFmpeg libraries and programs can be built and debugged directly within Visual Studio.
+
+This version contains some small modifications/fixes for some issues I had using it.
 
 ## FFmpeg
 
