@@ -3,6 +3,12 @@
 REM Get passed in list of dependencies to skip
 SET PASSDEPENDENCIES=%~1
 
+REM Set MSVC_VER if VisualStudioVersion is set
+REM the FOR  statement removes the decimal from the version e.g. VisualStudioVersion = 14.0 so MSVC = 14
+IF NOT "%VisualStudioVersion%"=="" (
+    FOR /F "tokens=1 delims=." %%V IN ("%VisualStudioVersion%") DO SET MSVC_VER=%%V
+)
+
 REM Check if git is installed and available
 IF "%MSVC_VER%"=="" (
     git status >NUL 2>&1
