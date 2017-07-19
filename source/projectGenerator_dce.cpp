@@ -380,6 +380,8 @@ bool ProjectGenerator::outputProjectDCE(const StaticList& vIncludeDirs)
         string sDCEOutFile;
         //Loop through all functions
         for (map<string, DCEParams>::iterator itDCE = mFoundDCEFunctions.begin(); itDCE != mFoundDCEFunctions.end(); itDCE++) {
+            // skip this function as it break things in multiple ways
+            if (itDCE->first.find("ff_flac_enc_lpc_16_sse4") != string::npos) { continue; }
             bool bUsePreProc = (itDCE->second.sDefine.length() > 1) && (itDCE->second.sDefine.compare("0") != 0);
             //Only include preprocessor guards if its a reserved option
             if (bUsePreProc) {
