@@ -81,7 +81,7 @@ REM Run the executable
 ECHO Running project generator...
 project_generate.exe %PGOPTIONS%
 REM fix missing config.asm inclusion
-sed -i'' "/PreIncludeFiles.*config\.asm/a       <AdditionalOptions>-P\"config.asm\" %(AdditionalOptions)</AdditionalOptions>" ../../ffmpeg/smp/*.vcxproj
+C:\msys64\usr\bin\sed -i'' "/PreIncludeFiles.*config\.asm/a       <AdditionalOptions>-P\"config.asm\" %(AdditionalOptions)</AdditionalOptions>" ../../ffmpeg/smp/*.vcxproj
 GOTO exit
 
 :makeGetDeps
