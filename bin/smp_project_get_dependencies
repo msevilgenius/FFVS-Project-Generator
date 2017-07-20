@@ -37,7 +37,7 @@ FOR %%I IN %DEPENDENCIES% DO (
     )
 )
 
-IF "%MSVC_VER%"!="" (
+IF NOT "%MSVC_VER%"=="" (
     powershell -nologo -noprofile -command "Copy-Item ./prebuilt/* -Destination ../msvc/ -Recurse"
 )
 cd %CURRDIR% >NUL
