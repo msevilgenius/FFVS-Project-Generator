@@ -102,6 +102,7 @@ REM    RepoName = Name of the repository
 :downloadLibs
 SET REPONAME=%~1
 REM Get latest release
+SET INSTLISTDIR=prebuilt\installed
 ECHO %REPONAME%: Getting latest release...
 SET UPSTREAMAPIURL=%UPSTREAMURL:github.com=api.github.com/repos%
 REM Check if secure OAuth is available
@@ -128,11 +129,25 @@ REM Download a pre-built archive and extract
 ECHO %REPONAME%: Downloading %LIBNAME%_%TAG%_msvc%MSVC_VER%.zip...
 SET PREBUILTDIR=prebuilt
 MKDIR %PREBUILTDIR% >NUL 2>&1
+MKDIR %INSTLISTDIR% >NUL 2>&1
 powershell -nologo -noprofile -command "try { (New-Object Net.WebClient).DownloadFile('%DLURL%', '%PREBUILTDIR%\temp.zip') } catch {exit 1}"
-IF NOT %ERRORLEVEL% == 0 ( ECHO Failed downloading %DLURL% & EXIT /B 1 )
+IF NOT %ERRORLEVEL% == 0 (
+    IF NOT EXIST "%INSTLISTDIR%\%REPONAME%" (
+        ECHO Failed downloading %DLURL% & EXIT /B 1
+    ) ELSE (
+        ECHO Failed downloading %DLURL%, but a version is already installed & EXIT /B 0
+    )
+)
 powershell -nologo -noprofile -command "Add-Type -AssemblyName System.IO.Compression.FileSystem; $zip=[System.IO.Compression.ZipFile]::OpenRead('%PREBUILTDIR%\temp.zip'); foreach ($item in $zip.Entries) { try {$file=(Join-Path -Path .\%PREBUILTDIR% -ChildPath $item.FullName); $null=[System.IO.Directory]::CreateDirectory((Split-Path -Path $file)); [System.IO.Compression.ZipFileExtensions]::ExtractToFile($item,$file,$true)} catch {exit 1} }"
-IF NOT %ERRORLEVEL% == 0 ( ECHO Failed extracting downloaded archive & EXIT /B 1 )
+IF NOT %ERRORLEVEL% == 0 (
+    IF NOT EXIST "%INSTLISTDIR%\%REPONAME%" (
+        ECHO Failed extracting downloaded archive & EXIT /B 1
+    ) ELSE (
+        ECHO Failed extracting downloaded archive, but a version is already installed & EXIT /B 0
+    )
+)
 DEL /F /Q %PREBUILTDIR%\\temp.zip
+type nul > %INSTLISTDIR%\%REPONAME%
 ECHO.
 EXIT /B %ERRORLEVEL%
 
