@@ -33,7 +33,7 @@ FOR %%I IN %DEPENDENCIES% DO (
             CALL :cloneOrUpdateRepo "%%I" || GOTO exitOnError
         ) ELSE (
             CALL :downloadLibs "%%I" || GOTO exitOnError
-            powershell -nologo -noprofile -command "Copy-Item ./src/prebuilt/* ./msvc/"
+            powershell -nologo -noprofile -command "Copy-Item ./prebuilt/* ../msvc/"
         )
     )
 )
