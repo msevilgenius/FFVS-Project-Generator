@@ -81,7 +81,7 @@ REM Run the executable
 ECHO Running project generator...
 project_generate.exe %PGOPTIONS%
 REM fix missing config.asm inclusion
-C:\msys64\usr\bin\sed -i'' "/PreIncludeFiles.*config\.asm/a       <AdditionalOptions>-P\"config.asm\"</AdditionalOptions>" ../../ffmpeg/smp/*.vcxproj
+powershell -nologo -noprofile -command "(Get-Item .\*.vcxproj) | ForEach-Object -Process {(Get-Content $_) | Foreach-Object {$_ -replace \"^<YASM^>\", \"^<YASM^>`n ` ` ` ` ` ^<AdditionalOptions^>-P`\"config.asm`\"^</AdditionalOptions^>\" } | Set-Content $_ }"
 GOTO exit
 
 :makeGetDeps
